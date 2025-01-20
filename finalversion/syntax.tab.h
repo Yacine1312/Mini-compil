@@ -61,7 +61,7 @@
      not = 277,
      opt = 278,
      sopt = 279,
-     optc = 280,
+     optcompar = 280,
      dpoint = 281,
      assig = 282,
      sc = 283,

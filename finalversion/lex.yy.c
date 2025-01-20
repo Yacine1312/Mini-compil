@@ -292,9 +292,9 @@ static yyconst short int yy_accept[116] =
        19,   33,   34,   29,   38,   30,   25,   20,    0,    5,
         0,    0,    0,    0,    0,   17,   19,   19,   19,   19,
        19,   19,   19,   10,   19,   19,   19,   19,   19,   19,
-       21,    0,   17,    0,    0,    0,    1,   18,   19,   19,
+       21,    0,   17,    0,    0,    0,    2,   18,   19,   19,
        19,   19,   19,   13,   19,   19,   19,    4,   19,   19,
-        0,    0,    2,    1,   19,   19,   11,    7,    7,   19,
+        0,    0,    1,    2,   19,   19,   11,    7,    7,   19,
        19,   19,   19,   19,   19,   18,   17,    6,   16,    9,
 
        19,   19,   19,   12,   19,   19,   19,   14,   19,    8,
@@ -703,220 +703,265 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 19 "lex.l"
-
+{
+      const char* commentContent = yytext + 3; // Skip the "/*" at the beginning
+      Col+= yyleng;
+      while (*commentContent) {
+        Col+= yyleng;
+          if (*commentContent == '\n') {
+              nb_line++;
+              Col= 1;
+          }
+          commentContent++;
+      }
+      nb_line=nb_line;
+    printf("comment reconnu  %s\n", yytext); 
+    }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 20 "lex.l"
-
+#line 33 "lex.l"
+{printf("comment reconnu  %s\n", yytext); }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 21 "lex.l"
-{Col = Col + strlen(yytext);insert(yytext,"kw_program","",0,2);yylval.str=strdup(yytext);return kw_program;}
+#line 34 "lex.l"
+{Col = Col+strlen(yytext);printf("prog reconnu  %s\n", yytext);insert(yytext,"kw_program","",0,2);yylval.str=strdup(yytext);return kw_program;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 22 "lex.l"
-{Col = Col + strlen(yytext);insert(yytext,"kw_var","",0,2);yylval.str=strdup(yytext);return kw_var;}
+#line 35 "lex.l"
+{Col = Col + strlen(yytext);printf("boc de var  %s\n", yytext);insert(yytext,"kw_var","",0,2);yylval.str=strdup(yytext);return kw_var;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 23 "lex.l"
-{Col = Col + strlen(yytext); insert(yytext,"kw_chaine","",0,2);yylval.str=strdup(yytext);return kw_chaine;}
+#line 36 "lex.l"
+{Col = Col + strlen(yytext); printf("chaine de car reconnu  %s\n", yytext);insert(yytext,"kw_chaine","",0,2);yylval.str=strdup(yytext);return kw_chaine;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 24 "lex.l"
-{Col = Col + strlen(yytext) ; insert(yytext,"kw_begin","",0,2);yylval.str=strdup(yytext);return kw_begin;}
+#line 37 "lex.l"
+{Col = Col + strlen(yytext) ; printf("begin reconnu  %s\n", yytext);insert(yytext,"kw_begin","",0,2);yylval.str=strdup(yytext);return kw_begin;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 25 "lex.l"
-{Col = Col + strlen(yytext) ;insert(yytext,"kw_end","",0,2);yylval.str=strdup(yytext);return kw_end;}
+#line 38 "lex.l"
+{Col = Col + strlen(yytext) ;printf("end reconnu  %s\n", yytext);insert(yytext,"kw_end","",0,2);yylval.str=strdup(yytext);return kw_end;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 26 "lex.l"
-{Col = Col + strlen(yytext); insert(yytext,"kw_int","",0,2);yylval.str=strdup(yytext);return kw_int;}
+#line 39 "lex.l"
+{Col = Col + strlen(yytext); printf("kw_integer reconnu  %s\n", yytext);insert(yytext,"kw_int","",0,2);yylval.str=strdup(yytext);return kw_int;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 27 "lex.l"
-{Col = Col + strlen(yytext); insert(yytext,"kw_float","",0,2);yylval.str=strdup(yytext);return kw_float;}
+#line 40 "lex.l"
+{Col = Col + strlen(yytext); printf("kw_float reconnu  %s\n", yytext);insert(yytext,"kw_float","",0,2);yylval.str=strdup(yytext);return kw_float;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 28 "lex.l"
-{Col = Col + strlen(yytext); insert(yytext,"kw_if","",0,2);yylval.str=strdup(yytext);return kw_if;}
+#line 41 "lex.l"
+{Col = Col + strlen(yytext); printf("kw_if reconnu  %s\n", yytext);insert(yytext,"kw_if","",0,2);yylval.str=strdup(yytext);return kw_if;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 29 "lex.l"
-{ Col = Col + strlen(yytext); insert(yytext,"kw_else","",0,2);yylval.str=strdup(yytext);return kw_else;}
+#line 42 "lex.l"
+{ Col = Col + strlen(yytext); printf("kw_else reconnu  %s\n", yytext);insert(yytext,"kw_else","",0,2);yylval.str=strdup(yytext);return kw_else;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 30 "lex.l"
-{Col = Col + strlen(yytext); insert(yytext,"kw_while","",0,2);yylval.str=strdup(yytext);return kw_while;}
+#line 43 "lex.l"
+{Col = Col + strlen(yytext); printf("kw_while reconnu  %s\n", yytext);insert(yytext,"kw_while","",0,2);yylval.str=strdup(yytext);return kw_while;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 31 "lex.l"
-{ Col = Col + strlen(yytext); insert(yytext,"kw_for","",0,2);yylval.str=strdup(yytext);return kw_for;}
+#line 44 "lex.l"
+{ Col = Col + strlen(yytext);printf("kw_for reconnu  %s\n", yytext); insert(yytext,"kw_for","",0,2);yylval.str=strdup(yytext);return kw_for;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 32 "lex.l"
-{Col = Col + strlen(yytext); insert(yytext,"kw_read","",0,2);yylval.str=strdup(yytext);return kw_read;}
+#line 45 "lex.l"
+{Col = Col + strlen(yytext); printf("kw_read reconnu  %s\n", yytext);insert(yytext,"kw_read","",0,2);yylval.str=strdup(yytext);return kw_read;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 33 "lex.l"
-{Col = Col + strlen(yytext);insert(yytext,"kw_write","",0,2);yylval.str=strdup(yytext);return kw_write;}
+#line 46 "lex.l"
+{Col = Col + strlen(yytext);printf("kw_write reconnu  %s\n", yytext);insert(yytext,"kw_write","",0,2);yylval.str=strdup(yytext);return kw_write;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 34 "lex.l"
-{Col = Col + strlen(yytext) ; insert(yytext,"kw_const","",0,2);yylval.str=strdup(yytext);return kw_const;}
+#line 47 "lex.l"
+{Col = Col + strlen(yytext) ; printf("kw_const reconnu  %s\n", yytext);insert(yytext,"kw_const","",0,2);yylval.str=strdup(yytext);return kw_const;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 35 "lex.l"
+#line 48 "lex.l"
 {
-    int x = atoi(yytext);
     Col += strlen(yytext);
-    if (x <= -32768 || x >= 32767) {
+    char* x = yytext;
+    if(x[0]=='(' && x[1]=='+'){
+        int y=atoi(x+2);
+        if (y >= -32768 && y <= 32767) {
+        printf("entier reconnu  %d\n", y);
+        insert(yytext,"kw_int","integer",y,0); 
+        yylval.integer= y;
+        return integer;
+        }
+        else{
         printf("Erreur Lexicale : la ligne %d entier hors limites (%s)\n",nb_line, yytext);
-    } else {
-       insert(yytext,"kw_int","integer",atoi(yytext),0); 
-       yylval.integer= atoi(yytext);
-       return integer;
+        } 
+        }
+    if(x[0]=='(' && x[1]=='-'){
+        int y=atoi(x+2);
+        if (y >= -32768 && y <= 32767) {
+        printf("entier reconnu  %d\n",y); 
+        y=y*(-1);   
+        insert(yytext,"kw_int","integer",y,0); 
+        yylval.integer= y;
+        return integer;}
+        else{
+       printf("Erreur Lexicale : la ligne %d entier hors limites (%s)\n",nb_line, yytext);
+       }
     }
+    else {
+       int y=atoi(x);
+       if (y >= -32768 && y <= 32767)
+       {
+         printf("entier reconnu  %d\n", atoi(yytext));
+        insert(yytext,"kw_int","integer",y,0); 
+        yylval.integer= y;
+        return integer;
+        }
+       else{
+        printf("Erreur Lexicale : la ligne %d entier hors limites (%s)\n",nb_line, yytext);
+        }
+}
 }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 46 "lex.l"
+#line 89 "lex.l"
 {Col = Col + strlen(yytext);
         yylval.reel = atof(yytext);
+        printf("float reconnu  %f\n", atof(yytext));
         insert(yytext,"kw_float","reel",atof(yytext),0);
 	    return reel;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 51 "lex.l"
+#line 95 "lex.l"
 {
     if (yyleng > 7) {
         printf("Erreur lexicale : IDF trop long (%s)\n", yytext);
     } else {
+        printf("IDF reconnu %s:\n",yytext);
         insert(yytext,"idf","",0,0);
-         yylval.str=strdup(yytext);
+        yylval.str=strdup(yytext);
         return idf;
     }
 }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 60 "lex.l"
-{Col = Col + strlen(yytext); insert(yytext,"and","",0,1);yylval.str=strdup(yytext);return and; }
+#line 105 "lex.l"
+{Col = Col + strlen(yytext); printf("sp_and reconnu %s\n",yytext);insert(yytext,"and","",0,1);yylval.str=strdup(yytext);return and;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 61 "lex.l"
-{Col = Col + strlen(yytext); insert(yytext,"or","",0,1);yylval.str=strdup(yytext);return or; }
+#line 106 "lex.l"
+{Col = Col + strlen(yytext); printf("sp_or reconnu %s\n",yytext);insert(yytext,"or","",0,1);yylval.str=strdup(yytext);return or;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 62 "lex.l"
-{Col = Col + strlen(yytext); insert(yytext,"not","",0,1); yylval.str=strdup(yytext);return not;}
+#line 107 "lex.l"
+{Col = Col + strlen(yytext); printf("sp_not reconnu %s\n",yytext);insert(yytext,"not","",0,1); yylval.str=strdup(yytext);return not;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 63 "lex.l"
-{Col = Col + strlen(yytext); insert(yytext,"mul div","",0,1);yylval.str=strdup(yytext);return opt;}
+#line 108 "lex.l"
+{Col = Col + strlen(yytext); printf("sp reconnu %s\n",yytext);insert(yytext,"mul div","",0,1);yylval.str=strdup(yytext);return opt;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 64 "lex.l"
-{Col = Col + strlen(yytext); insert(yytext,"add minus","",0,1);yylval.str=strdup(yytext);return sopt;}
+#line 109 "lex.l"
+{Col = Col + strlen(yytext);printf("sp reconnu %s\n",yytext); insert(yytext,"add minus","",0,1);yylval.str=strdup(yytext);return sopt;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 65 "lex.l"
-{Col = Col + strlen(yytext); insert(yytext,"operation_log","",0,1);yylval.str=strdup(yytext);return optc;}
+#line 110 "lex.l"
+{Col = Col + strlen(yytext); printf("sp reconnu %s\n",yytext);insert(yytext,"operation_compa","",0,1);yylval.str=strdup(yytext);return optcompar;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 66 "lex.l"
-{Col = Col + strlen(yytext); insert(yytext,"doubl_point","",0,1);yylval.str=strdup(yytext);return dpoint;}
+#line 111 "lex.l"
+{Col = Col + strlen(yytext); printf("sp_dpoint reconnu %s\n",yytext);insert(yytext,"doubl_point","",0,1);yylval.str=strdup(yytext);return dpoint;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 67 "lex.l"
-{Col = Col + strlen(yytext); insert(yytext,"assig","",0,1);yylval.str=strdup(yytext);return assig;}
+#line 112 "lex.l"
+{Col = Col + strlen(yytext); printf("sp_aff reconnu %s\n",yytext);insert(yytext,"assig","",0,1);yylval.str=strdup(yytext);return assig;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 68 "lex.l"
-{Col = Col + strlen(yytext); insert(yytext,"comma","",0,1);yylval.str=strdup(yytext);return cm;}
+#line 113 "lex.l"
+{Col = Col + strlen(yytext); printf("cm reconnu %s\n",yytext);insert(yytext,"comma","",0,1);yylval.str=strdup(yytext);return cm;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 69 "lex.l"
-{Col = Col + strlen(yytext); insert(yytext,"acc_op","",0,1);yylval.str=strdup(yytext);return acc_op;}
+#line 114 "lex.l"
+{Col = Col + strlen(yytext); printf("sp_acco reconnu %s\n",yytext);insert(yytext,"acc_op","",0,1);yylval.str=strdup(yytext);return acc_op;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 70 "lex.l"
-{Col = Col + strlen(yytext); insert(yytext,"acc_cl","",0,1);yylval.str=strdup(yytext);return acc_cl;}
+#line 115 "lex.l"
+{Col = Col + strlen(yytext); printf("sp_accf reconnu %s\n",yytext);insert(yytext,"acc_cl","",0,1);yylval.str=strdup(yytext);return acc_cl;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 71 "lex.l"
-{Col = Col + strlen(yytext); insert(yytext,"par_op","",0,1);yylval.str=strdup(yytext);return par_op;}
+#line 116 "lex.l"
+{Col = Col + strlen(yytext); printf("sp_paro reconnu %s\n",yytext);insert(yytext,"par_op","",0,1);yylval.str=strdup(yytext);return par_op;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 72 "lex.l"
-{Col = Col + strlen(yytext); insert(yytext,"par_cl","",0,1);yylval.str=strdup(yytext);return par_cl;}
+#line 117 "lex.l"
+{Col = Col + strlen(yytext); printf("sp_parf reconnu %s\n",yytext);insert(yytext,"par_cl","",0,1);yylval.str=strdup(yytext);return par_cl;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 73 "lex.l"
-{Col = Col + strlen(yytext); insert(yytext,"hook_op","",0,1);yylval.str=strdup(yytext);return hook_op;}
+#line 118 "lex.l"
+{Col = Col + strlen(yytext); printf("sp_croch reconnu %s\n",yytext);insert(yytext,"hook_op","",0,1);yylval.str=strdup(yytext);return hook_op;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 74 "lex.l"
-{Col = Col + strlen(yytext); insert(yytext,"hook_cl","",0,1);yylval.str=strdup(yytext);return hook_cl;}
+#line 119 "lex.l"
+{Col = Col + strlen(yytext); printf("sp_crouch reconnu %s\n",yytext);insert(yytext,"hook_cl","",0,1);yylval.str=strdup(yytext);return hook_cl;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 75 "lex.l"
-{Col = Col + strlen(yytext);insert(yytext,"sc","",0,1);yylval.str=strdup(yytext);return sc;}
+#line 120 "lex.l"
+{Col = Col + strlen(yytext); printf("sc reconnu %s\n",yytext);insert(yytext,"sc","",0,1);yylval.str=strdup(yytext);return sc;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 76 "lex.l"
+#line 121 "lex.l"
 {Col = Col + strlen(yytext);}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 77 "lex.l"
+#line 122 "lex.l"
 {nb_line++; Col = 1;}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 78 "lex.l"
-{ printf("Erreur lexicale à la ligne %d et la colomn %d: %s\n", nb_line,Col,yytext); }
+#line 123 "lex.l"
+{ printf("Erreur lexicale à la ligne %d et la colomn %d: %s\n", nb_line,Col,yytext);}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 79 "lex.l"
+#line 124 "lex.l"
 ECHO;
 	YY_BREAK
-#line 920 "lex.yy.c"
+#line 965 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1802,4 +1847,4 @@ int main()
 	return 0;
 	}
 #endif
-#line 79 "lex.l"
+#line 124 "lex.l"

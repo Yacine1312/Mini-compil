@@ -1,29 +1,24 @@
 PROGRAMME TEST
-VAR{
-FLOAT y;
-INTEGER A,B;
-CONST Z=5;
-INTEGER K[20];
+VAR {
+INTEGER L, N1, m, Tab[3], n,i,j, Nombre
 }
 BEGIN
-Y=25.12;
-A=(-325);
-B=(222);
-E=(-12.12);
-IF (Aa > Bb){
-Cc=E+2.6;
-}
-ELSE{
-Cc=0;
+IF((Aa>b) || (Aa<C)){
+A=(X+7+B) / (5.3-(-2)) ;
+A= 0;
 }
 IF(A > B){
     WriteIn('bonjour');
 }ELSE{
 Y=(10);
+   // A == B;
     ReadIn(yacin);
 }
 FOR(i:0:2:n){
 i=i+2;
+FOR(i:0:2:n){
+i=i+2;
+}
 }
 WHILE(i<n){
 i=i+2;
@@ -31,7 +26,7 @@ i=i+2;
 IF(A == B){
     WriteIn('bonjour');
 }
-IF(A && B){
+//IF(A && B){
     WriteIn('bonjour');
-}
+//}
 END.
